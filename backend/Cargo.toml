@@ -1,0 +1,17 @@
+[package]
+name = "anime-watcher-backend"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.70"
+log = "0.4.17"
+log4rs = "1.2.0"
+rocket = { version = "=0.5.0-rc.3", default-features = false, features = [
+  "secrets",
+  "json",
+  "uuid",
+] }
+tokio = { version = "1.27.0", features = ["rt-multi-thread"] }
