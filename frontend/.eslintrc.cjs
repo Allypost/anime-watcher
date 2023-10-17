@@ -23,8 +23,8 @@ const config = {
     "next/core-web-vitals",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:@typescript-eslint/strict",
   ],
   rules: {
@@ -65,7 +65,8 @@ const config = {
     "react/function-component-definition": [
       "error",
       {
-        namedComponents: "arrow-function",
+        namedComponents: ["arrow-function", "function-declaration"],
+        unnamedComponents: ["arrow-function"],
       },
     ],
     "react/jsx-sort-props": [
