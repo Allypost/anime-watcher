@@ -13,6 +13,12 @@ const config = {
     buildActivityPosition: "bottom-right",
   },
   output: "standalone",
+  experimental: {
+    adjustFontFallbacks: true,
+    adjustFontFallbacksWithSizeAdjust: true,
+    serverActions: true,
+    typedRoutes: true,
+  },
 };
 
 export default config;

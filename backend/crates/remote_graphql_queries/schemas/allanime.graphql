@@ -1,0 +1,4439 @@
+"""
+"""
+type Query {
+  """
+  """
+  twoFactorSecret: TwoFactorSecretKey
+  """
+  """
+  getUser: User
+  """
+  """
+  fastSearch(
+    """
+    """
+    search: SearchInput!
+  ): SearchResult!
+  """
+  """
+  shows(
+    """
+    """
+    search: SearchInput
+    """
+    """
+    page: Int
+    """
+    """
+    offset: Int
+    """
+    """
+    limit: Int
+    """
+    """
+    translationType: VaildTranslationTypeEnumType
+    """
+    """
+    countryOrigin: VaildCountryOriginEnumType
+    """
+    """
+    queryAt: String
+  ): ShowsConnection!
+  """
+  """
+  show(
+    """
+    """
+    _id: String!
+    """
+    """
+    queryAt: String
+  ): Show
+  """
+  """
+  showsWithIds(
+    """
+    """
+    ids: [String!]!
+  ): [Show]
+  """
+  """
+  showsWithPlaylistId(
+    """
+    """
+    playlistId: String!
+    """
+    """
+    page: Int
+    """
+    """
+    offset: Int
+    """
+    """
+    limit: Int
+    """
+    """
+    visitor: Int
+    """
+    """
+    queryAt: String
+  ): ShowsConnection
+  """
+  """
+  mangas(
+    """
+    """
+    search: SearchInput
+    """
+    """
+    page: Int
+    """
+    """
+    offset: Int
+    """
+    """
+    limit: Int
+    """
+    """
+    translationType: VaildTranslationTypeMangaEnumType
+    """
+    """
+    countryOrigin: VaildCountryOriginEnumType
+    """
+    """
+    format: VaildMangaFormatEnumType
+  ): MangasConnection!
+  """
+  """
+  manga(
+    """
+    """
+    _id: String!
+  ): Manga
+  """
+  """
+  mangasWithIds(
+    """
+    """
+    ids: [String!]!
+  ): [Manga]
+  """
+  """
+  mangasWithPlaylistId(
+    """
+    """
+    playlistId: String!
+    """
+    """
+    page: Int
+    """
+    """
+    offset: Int
+    """
+    """
+    limit: Int
+    """
+    """
+    visitor: Int
+  ): MangasConnection
+  """
+  """
+  episodes(
+    """
+    """
+    showId: String
+    """
+    """
+    translationType: VaildTranslationTypeEnumType
+    """
+    """
+    episodeNumStart: Int
+    """
+    """
+    episodeNumEnd: Int
+  ): EpisodesConnection!
+  """
+  """
+  episode(
+    """
+    """
+    showId: String!
+    """
+    """
+    episodeString: String!
+    """
+    """
+    translationType: VaildTranslationTypeEnumType!
+    """
+    """
+    queryAt: String
+  ): Episode
+  """
+  """
+  episodeInfos(
+    """
+    """
+    showId: String!
+    """
+    """
+    episodeNumStart: Float!
+    """
+    """
+    episodeNumEnd: Float!
+    """
+    """
+    queryAt: String
+  ): [EpisodeInfo]
+  """
+  """
+  chaptersForRead(
+    """
+    """
+    mangaId: String!
+    """
+    """
+    translationType: VaildTranslationTypeMangaEnumType!
+    """
+    """
+    chapterString: String!
+    """
+    """
+    page: Int
+    """
+    """
+    limit: Int
+    """
+    """
+    offset: Int
+    """
+    """
+    queryAt: String
+  ): ChaptersConnection
+  """
+  """
+  chapterPages(
+    """
+    """
+    mangaId: String!
+    """
+    """
+    translationType: VaildTranslationTypeMangaEnumType!
+    """
+    """
+    chapterString: String!
+    """
+    """
+    page: Int
+    """
+    """
+    limit: Int
+    """
+    """
+    offset: Int
+    """
+    """
+    queryAt: String
+  ): ChaptersConnection
+  """
+  """
+  chapter(
+    """
+    """
+    mangaId: String!
+    """
+    """
+    chapterString: String!
+    """
+    """
+    translationType: VaildTranslationTypeMangaEnumType!
+    """
+    """
+    queryAt: String
+  ): Chapter
+  """
+  """
+  charactersWithAnilistId(
+    """
+    """
+    aniListId: Int!
+  ): Character
+  """
+  """
+  stuffs(
+    """
+    """
+    staffAniListIds: [Int!]!
+    """
+    """
+    pageNo: Int
+    """
+    """
+    limit: Int
+    """
+    """
+    offset: Int
+  ): [Stuff]
+  """
+  """
+  musics(
+    """
+    """
+    search: MusicSearchInput
+    """
+    """
+    page: Int
+    """
+    """
+    offset: Int
+    """
+    """
+    limit: Int
+  ): MusicsConnection!
+  """
+  """
+  music(
+    """
+    """
+    _id: String
+  ): Music
+  """
+  """
+  musicsWithPlaylistId(
+    """
+    """
+    playlistId: String!
+    """
+    """
+    page: Int
+    """
+    """
+    offset: Int
+    """
+    """
+    limit: Int
+    """
+    """
+    visitor: Int
+  ): MusicsConnection
+  """
+  """
+  queryPopularMusic(
+    """
+    """
+    size: Int!
+    """
+    """
+    dateRange: Int
+    """
+    """
+    page: Int
+  ): MusicsConnection
+  """
+  """
+  queryMusicRecommendation(
+    """
+    """
+    size: Int
+    """
+    """
+    page: Int
+  ): MusicsConnection
+  """
+  """
+  playlistWithId(
+    """
+    """
+    playlistId: String!
+    """
+    """
+    userId: String
+  ): Playlist
+  """
+  """
+  playlists(
+    """
+    """
+    format: VaildPlaylistEnumType!
+    """
+    """
+    forSelf: Boolean
+    """
+    """
+    userId: String
+    """
+    """
+    page: Int
+    """
+    """
+    offset: Int
+    """
+    """
+    limit: Int
+    """
+    """
+    favList: Int
+  ): PlaylistResponse
+  """
+  """
+  myPlaylists(
+    """
+    """
+    search: UserPlaylistsSearch
+    """
+    """
+    favList: Int
+  ): MyOwnPlaylistResponse
+  """
+  """
+  relatedPlaylistsWithPlayId(
+    """
+    """
+    format: VaildPlaylistEnumType!
+    """
+    """
+    userId: String
+    """
+    """
+    page: Int
+    """
+    """
+    offset: Int
+    """
+    """
+    limit: Int
+    """
+    """
+    playId: String!
+  ): PlaylistResponse
+  """
+  """
+  userPlaylists(
+    """
+    """
+    search: UserPlaylistsSearch
+  ): PlaylistResponse
+  """
+  """
+  queryPageStatusForShowManga(
+    """
+    """
+    page: PageInput!
+    """
+    """
+    userId: String
+    """
+    """
+    nameOnlyString: String!
+  ): PageStatus
+  """
+  """
+  queryRecommendation(
+    """
+    """
+    pageSearch: queryPageInput!
+  ): RecommendationsResponse
+  """
+  """
+  queryPopular(
+    """
+    """
+    type: VaildPopularTypeEnumType!
+    """
+    """
+    size: Int!
+    """
+    """
+    dateRange: Int
+    """
+    """
+    isAdult: Boolean
+    """
+    """
+    page: Int
+    """
+    """
+    allowAdult: Boolean
+    """
+    """
+    allowUnknown: Boolean
+    """
+    """
+    denyEcchi: Boolean
+  ): RecommendationsResponse
+  """
+  """
+  queryLatestPageStatus(
+    """
+    """
+    pageSearch: queryPageInput!
+  ): RecommendationsResponse
+  """
+  """
+  queryPageForIndependentDoc(
+    """
+    """
+    _id: String!
+    """
+    """
+    type: String!
+    """
+    """
+    otherFields: Object
+  ): PageRelationResponse
+  """
+  """
+  queryCommentLikes(
+    """
+    """
+    showId: String!
+    """
+    """
+    format: String!
+  ): PageRelationLikesResponse
+  """
+  """
+  queryComments(
+    """
+    """
+    search: CommentsSearch!
+  ): CommentResponse
+  """
+  """
+  queryReviews(
+    """
+    """
+    search: ReviewsSearch!
+  ): ReviewResponse
+  """
+  """
+  queryUserReviews(
+    """
+    """
+    search: UserReviewsSearch!
+  ): ReviewResponse
+  """
+  """
+  queryUserComments(
+    """
+    """
+    search: UserCommentsSearch!
+  ): CommentResponse
+  """
+  """
+  queryUserActivities(
+    """
+    """
+    search: UserActivitiesSearch!
+  ): ActivityResponse
+  """
+  """
+  queryRandomRecommendation(
+    """
+    """
+    format: String!
+    """
+    """
+    allowAdult: Boolean
+    """
+    """
+    translationType: String
+    """
+    """
+    denyEcchi: Boolean
+  ): [AnyCard]
+  """
+  """
+  testFcm(
+    """
+    """
+    msg: String
+  ): String
+  """
+  """
+  watchState(
+    """
+    """
+    showId: String!
+    """
+    """
+    isManga: Boolean!
+    """
+    """
+    userId: String
+  ): WatchState
+  """
+  """
+  watchingList(
+    """
+    """
+    cardType: VaildWatchingCardTypeEnumType
+    """
+    """
+    type: VaildWatchingEnumType!
+    """
+    """
+    userId: String!
+    """
+    """
+    forSelf: Boolean
+    """
+    """
+    pageNo: Int
+    """
+    """
+    limit: Int!
+    """
+    """
+    sortBy: SortByWatchState
+    """
+    """
+    sortDirection: Int
+    """
+    """
+    translationType: VaildTranslationTypeEnumType
+  ): WatchListResponse
+  """
+  """
+  users(
+    """
+    """
+    search: UserListInput
+    """
+    """
+    page: Int
+    """
+    """
+    limit: Int
+  ): UsersConnection
+  """
+  """
+  user(
+    """
+    """
+    _id: ID!
+  ): UserDisplay
+  """
+  """
+  queryTags(
+    """
+    """
+    search: TagSearchInput
+    """
+    """
+    page: Int
+    """
+    """
+    offset: Int
+    """
+    """
+    limit: Int
+  ): TagsConnection!
+  """
+  """
+  queryListForTag(
+    """
+    """
+    search: ListForTagInput!
+  ): TagListRecommendationsResponse
+  """
+  """
+  appsAccessbility: String!
+  """
+  """
+  appParams: String!
+}
+
+"""
+"""
+type TwoFactorSecretKey {
+  """
+  """
+  ascii: String
+  """
+  """
+  base32: String
+  """
+  """
+  hex: String
+  """
+  """
+  qr_code_ascii: String
+  """
+  """
+  qr_code_hex: String
+  """
+  """
+  qr_code_base32: String
+  """
+  """
+  google_auth_qr: String
+  """
+  """
+  otpauth_url: String
+}
+
+"""
+"""
+type User {
+  """
+  """
+  id: ID!
+  """
+  """
+  emails: [EmailRecord!]
+  """
+  """
+  username: String
+  """
+  """
+  _id: String
+  """
+  """
+  displayName: String
+  """
+  """
+  password: String
+  """
+  """
+  roles: [String!]
+  """
+  """
+  heartbeat: DateTime
+  """
+  """
+  hideMe: Boolean
+  """
+  """
+  status: UserStatus
+  """
+  """
+  registered_emails: [Email]
+  """
+  """
+  createdAt: DateTime
+  """
+  """
+  picture: String
+  """
+  """
+  coverImg: String
+  """
+  """
+  description: String
+  """
+  """
+  brief: String
+  """
+  """
+  badges: [Object]
+  """
+  """
+  statistics: Object
+  """
+  """
+  views: BigInt
+  """
+  """
+  likesCount: BigInt
+  """
+  """
+  commentCount: BigInt
+  """
+  """
+  dislikesCount: BigInt
+  """
+  """
+  userScoreCount: BigInt
+  """
+  """
+  reviewCount: BigInt
+  """
+  """
+  userScoreTotalValue: Float
+  """
+  """
+  userScoreAverValue: Float
+  """
+  """
+  viewers: ValidViewers
+  """
+  """
+  pgRelation: PageRelation
+}
+
+"""
+"""
+type EmailRecord {
+  """
+  """
+  address: String
+  """
+  """
+  verified: Boolean
+}
+
+"""
+"""
+type UserStatus {
+  """
+  """
+  lastlogin: lastlogin
+  """
+  """
+  userAgent: String
+  """
+  """
+  online: Boolean
+  """
+  """
+  page: String
+  """
+  """
+  idle: Boolean
+}
+
+"""
+"""
+type lastlogin {
+  """
+  """
+  date: DateTime
+  """
+  """
+  ipAddr: String
+}
+
+"""
+"""
+type Email {
+  """
+  """
+  address: String
+  """
+  """
+  verified: Boolean
+}
+
+"""
+Represents an arbitrary object.
+"""
+scalar Object
+
+"""
+The `BigInt` scalar type represents non-fractional signed whole numeric values.BigInt can represent values between -(2^63) + 1 and 2^63 - 1.
+"""
+scalar BigInt
+
+"""
+"""
+type ValidViewers {
+  """
+  """
+  recViewers: [Viewer]
+  """
+  """
+  firstViewers: [Viewer]
+}
+
+"""
+"""
+type Viewer {
+  """
+  """
+  userId: String
+  """
+  """
+  viewCount: Int
+  """
+  """
+  lastWatchedDate: DateTime
+  """
+  """
+  user: UserDisplay
+}
+
+"""
+"""
+type UserDisplay {
+  """
+  """
+  _id: String
+  """
+  """
+  displayName: String
+  """
+  """
+  roles: [String!]
+  """
+  """
+  hideMe: Boolean
+  """
+  """
+  status: UserStatus
+  """
+  """
+  createdAt: DateTime
+  """
+  """
+  picture: String
+  """
+  """
+  coverImg: String
+  """
+  """
+  description: String
+  """
+  """
+  brief: String
+  """
+  """
+  badges: [Object]
+  """
+  """
+  statistics: Object
+  """
+  """
+  views: BigInt
+  """
+  """
+  likesCount: BigInt
+  """
+  """
+  commentCount: BigInt
+  """
+  """
+  dislikesCount: BigInt
+  """
+  """
+  userScoreCount: BigInt
+  """
+  """
+  reviewCount: BigInt
+  """
+  """
+  userScoreTotalValue: Float
+  """
+  """
+  userScoreAverValue: Float
+  """
+  """
+  viewers: ValidViewers
+  """
+  """
+  pgRelation: PageRelation
+}
+
+"""
+"""
+type PageRelation {
+  """
+  """
+  _id: String
+  """
+  """
+  format: VaildPageRelationFormatEnumType
+  """
+  """
+  showId: String
+  """
+  """
+  userId: String
+  """
+  """
+  episodeIdNum: Float
+  """
+  """
+  language: String
+  """
+  """
+  views: Object
+  """
+  """
+  like: DateTime
+  """
+  """
+  dislike: DateTime
+  """
+  """
+  uScore: Object
+  """
+  """
+  lastActivity: Object
+  """
+  """
+  spFields: Object
+  """
+  """
+  isAdult: Boolean
+  """
+  """
+  comment: Object
+  """
+  """
+  relatedItem: Object
+  """
+  """
+  user: UserDisplay
+}
+
+"""
+"""
+enum VaildPageRelationFormatEnumType {
+  """
+  """
+  anime
+  """
+  """
+  manga
+  """
+  """
+  music
+  """
+  """
+  episode
+  """
+  """
+  chapter
+  """
+  """
+  character
+  """
+  """
+  user
+  """
+  """
+  page
+  """
+  """
+  others
+}
+
+"""
+"""
+input SearchInput {
+  """
+  """
+  dateRangeStart: Int
+  """
+  """
+  dateRangeEnd: Int
+  """
+  """
+  sortBy: SortBy
+  """
+  """
+  sortDirection: SortDirection
+  """
+  """
+  query: String
+  """
+  """
+  isManga: Boolean
+  """
+  """
+  types: [String]
+  """
+  """
+  excludeTypes: [String]
+  """
+  """
+  includeTypes: Boolean
+  """
+  """
+  genres: [String]
+  """
+  """
+  excludeGenres: [String]
+  """
+  """
+  tags: [String]
+  """
+  """
+  excludeTags: [String]
+  """
+  """
+  authors: [String]
+  """
+  """
+  studios: [String]
+  """
+  """
+  magazine: String
+  """
+  """
+  includeGenres: Boolean
+  """
+  """
+  season: VaildSeasonsEnumType
+  """
+  """
+  year: Int
+  """
+  """
+  allowAdult: Boolean
+  """
+  """
+  allowUnknown: Boolean
+  """
+  """
+  denyEcchi: Boolean
+  """
+  """
+  epRangeStart: Int
+  """
+  """
+  epRangeEnd: Int
+}
+
+"""
+"""
+enum SortBy {
+  """
+  """
+  Latest_Update
+  """
+  """
+  Type
+  """
+  """
+  Name_ASC
+  """
+  """
+  Name_DESC
+  """
+  """
+  Recent
+  """
+  """
+  Top
+  """
+  """
+  Popular
+  """
+  """
+  List
+  """
+  """
+  Random
+  """
+  """
+  Recommendation
+  """
+  """
+  Trending
+}
+
+"""
+"""
+enum SortDirection {
+  """
+  """
+  ASC
+  """
+  """
+  DSC
+}
+
+"""
+"""
+enum VaildSeasonsEnumType {
+  """
+  """
+  Winter
+  """
+  """
+  Spring
+  """
+  """
+  Summer
+  """
+  """
+  Fall
+}
+
+"""
+"""
+type SearchResult {
+  """
+  """
+  anyCards: [AnyCard]
+}
+
+"""
+"""
+type AnyCard {
+  """
+  """
+  _id: String
+  """
+  """
+  updateQueue: BigInt
+  """
+  """
+  manualUpdated: Boolean
+  """
+  """
+  dailyUpdateNeeded: Boolean
+  """
+  """
+  hidden: Boolean
+  """
+  """
+  lastUpdateStart: DateTime
+  """
+  """
+  lastUpdateEnd: DateTime
+  """
+  """
+  shownOnOtherSite: Boolean
+  """
+  """
+  shownOnMAL: Boolean
+  """
+  """
+  malId: BigInt
+  """
+  """
+  aniListId: BigInt
+  """
+  """
+  streamerUrls: [Object]
+  """
+  """
+  name: String
+  """
+  """
+  englishName: String
+  """
+  """
+  nativeName: String
+  """
+  """
+  nameOnlyString: String
+  """
+  """
+  status: String
+  """
+  """
+  altNames: [String]
+  """
+  """
+  trustedAltNames: [String]
+  """
+  """
+  description: String
+  """
+  """
+  prevideos: [String]
+  """
+  """
+  thumbnail: String
+  """
+  """
+  banner: String
+  """
+  """
+  musics: [Object]
+  """
+  """
+  thumbnails: [String]
+  """
+  """
+  type: String
+  """
+  """
+  score: Float
+  """
+  """
+  averageScore: Float
+  """
+  """
+  popularity: Int
+  """
+  """
+  genres: [String]
+  """
+  """
+  airedStart: Object
+  """
+  """
+  airedEnd: Object
+  """
+  """
+  season: Object
+  """
+  """
+  episodeCount: Int
+  """
+  """
+  chapterCount: Int
+  """
+  """
+  broadcastInterval: BigInt
+  """
+  """
+  episodeDuration: BigInt
+  """
+  """
+  rating: String
+  """
+  """
+  studios: [String]
+  """
+  """
+  relatedShows: [Object]
+  """
+  """
+  relatedMangas: [Object]
+  """
+  """
+  characters: [Object]
+  """
+  """
+  nextAiringEpisode: Object
+  """
+  """
+  determinedInterval: Object
+  """
+  """
+  lastEpisodeDate: Object
+  """
+  """
+  lastEpisodeTimestamp: Object
+  """
+  """
+  lastEpisodeInfo: Object
+  """
+  """
+  lastChapterDate: Object
+  """
+  """
+  lastChapterTimestamp: Object
+  """
+  """
+  lastChapterInfo: Object
+  """
+  """
+  availableChapters: Object
+  """
+  """
+  availableChaptersDetail: Object
+  """
+  """
+  availableEpisodes: Object
+  """
+  """
+  availableEpisodesDetail: Object
+  """
+  """
+  searchFragments: [String]
+  """
+  """
+  firstCharacters: [String]
+  """
+  """
+  slugTime: BigInt
+}
+
+"""
+"""
+enum VaildTranslationTypeEnumType {
+  """
+  """
+  sub
+  """
+  """
+  dub
+  """
+  """
+  raw
+}
+
+"""
+"""
+enum VaildCountryOriginEnumType {
+  """
+  """
+  ALL
+  """
+  """
+  JP
+  """
+  """
+  CN
+  """
+  """
+  KR
+  """
+  """
+  OTHER
+}
+
+"""
+"""
+type ShowsConnection {
+  """
+  """
+  edges: [Show!]
+  """
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+"""
+type Show {
+  """
+  """
+  _id: String
+  """
+  """
+  updateQueue: BigInt
+  """
+  """
+  isAdult: Boolean
+  """
+  """
+  manualUpdated: Boolean
+  """
+  """
+  dailyUpdateNeeded: Boolean
+  """
+  """
+  hidden: Boolean
+  """
+  """
+  lastUpdateStart: DateTime
+  """
+  """
+  lastUpdateEnd: DateTime
+  """
+  """
+  name: String
+  """
+  """
+  englishName: String
+  """
+  """
+  nativeName: String
+  """
+  """
+  nameOnlyString: String
+  """
+  """
+  countryOfOrigin: VaildCountryOriginEnumType
+  """
+  """
+  malId: BigInt
+  """
+  """
+  aniListId: BigInt
+  """
+  """
+  status: String
+  """
+  """
+  altNames: [String]
+  """
+  """
+  trustedAltNames: [String]
+  """
+  """
+  description: String
+  """
+  """
+  prevideos: [String]
+  """
+  """
+  thumbnail: String
+  """
+  """
+  banner: String
+  """
+  """
+  thumbnails: [String]
+  """
+  """
+  musics: [Object]
+  """
+  """
+  score: Float
+  """
+  """
+  type: String
+  """
+  """
+  averageScore: Float
+  """
+  """
+  genres: [String]
+  """
+  """
+  tags: [String]
+  """
+  """
+  popularity: BigInt
+  """
+  """
+  airedStart: Object
+  """
+  """
+  airedEnd: Object
+  """
+  """
+  season: Object
+  """
+  """
+  rating: String
+  """
+  """
+  broadcastInterval: BigInt
+  """
+  """
+  relatedShows: [Object]
+  """
+  """
+  relatedMangas: [Object]
+  """
+  """
+  characters: [Object]
+  """
+  """
+  pageStatus: PageStatus
+  """
+  """
+  determinedInterval: Object
+  """
+  """
+  slugTime: BigInt
+  """
+  """
+  episodeCount: BigInt
+  """
+  """
+  episodeDuration: BigInt
+  """
+  """
+  studios: [String]
+  """
+  """
+  nextAiringEpisode: Object
+  """
+  """
+  lastEpisodeDate: Object
+  """
+  """
+  lastEpisodeTimestamp: Object
+  """
+  """
+  lastEpisodeInfo: Object
+  """
+  """
+  availableEpisodes: Object
+  """
+  """
+  availableEpisodesDetail: Object
+  """
+  """
+  disqusIds: Object
+}
+
+"""
+"""
+type PageStatus {
+  """
+  """
+  _id: String
+  """
+  """
+  showId: String
+  """
+  """
+  episodeId: String
+  """
+  """
+  thumbnail: String
+  """
+  """
+  notes: String
+  """
+  """
+  description: String
+  """
+  """
+  translationType: String
+  """
+  """
+  rangeViews: BigInt
+  """
+  """
+  isManga: Boolean
+  """
+  """
+  lastUpdateStart: DateTime
+  """
+  """
+  lastUpdateEnd: DateTime
+  """
+  """
+  pageId: String
+  """
+  """
+  isAdult: Boolean
+  """
+  """
+  reports: [Report!]
+  """
+  """
+  views: BigInt
+  """
+  """
+  likesCount: BigInt
+  """
+  """
+  commentCount: BigInt
+  """
+  """
+  dislikesCount: BigInt
+  """
+  """
+  userScoreCount: BigInt
+  """
+  """
+  reviewCount: BigInt
+  """
+  """
+  userScoreTotalValue: Float
+  """
+  """
+  userScoreAverValue: Float
+  """
+  """
+  viewers: ValidViewers
+  """
+  """
+  pgRelation: PageRelation
+}
+
+"""
+"""
+type Report {
+  """
+  """
+  problem: String
+  """
+  """
+  email: Email
+  """
+  """
+  describing: String
+  """
+  """
+  userId: String
+  """
+  """
+  date: DateTime
+}
+
+"""
+"""
+type PageInfo {
+  """
+  """
+  hasNextPage: Boolean
+  """
+  """
+  nextPage: Int
+  """
+  """
+  prevPage: Int
+  """
+  """
+  total: Int
+  """
+  """
+  offset: Int
+  """
+  """
+  limit: Int
+  """
+  """
+  totalPages: Int
+  """
+  """
+  page: Int
+  """
+  """
+  hasPrevPage: Boolean
+}
+
+"""
+"""
+enum VaildTranslationTypeMangaEnumType {
+  """
+  """
+  sub
+  """
+  """
+  raw
+}
+
+"""
+"""
+enum VaildMangaFormatEnumType {
+  """
+  """
+  ALL
+  """
+  """
+  MANGA
+  """
+  """
+  MANHUA
+  """
+  """
+  MANHWA
+}
+
+"""
+"""
+type MangasConnection {
+  """
+  """
+  edges: [Manga!]
+  """
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+"""
+type Manga {
+  """
+  """
+  _id: String
+  """
+  """
+  updateQueue: BigInt
+  """
+  """
+  isAdult: Boolean
+  """
+  """
+  manualUpdated: Boolean
+  """
+  """
+  dailyUpdateNeeded: Boolean
+  """
+  """
+  hidden: Boolean
+  """
+  """
+  lastUpdateStart: DateTime
+  """
+  """
+  lastUpdateEnd: DateTime
+  """
+  """
+  name: String
+  """
+  """
+  englishName: String
+  """
+  """
+  nativeName: String
+  """
+  """
+  nameOnlyString: String
+  """
+  """
+  countryOfOrigin: VaildCountryOriginEnumType
+  """
+  """
+  malId: BigInt
+  """
+  """
+  aniListId: BigInt
+  """
+  """
+  status: String
+  """
+  """
+  altNames: [String]
+  """
+  """
+  trustedAltNames: [String]
+  """
+  """
+  description: String
+  """
+  """
+  prevideos: [String]
+  """
+  """
+  thumbnail: String
+  """
+  """
+  banner: String
+  """
+  """
+  thumbnails: [String]
+  """
+  """
+  musics: [Object]
+  """
+  """
+  score: Float
+  """
+  """
+  type: String
+  """
+  """
+  averageScore: Float
+  """
+  """
+  genres: [String]
+  """
+  """
+  tags: [String]
+  """
+  """
+  popularity: BigInt
+  """
+  """
+  airedStart: Object
+  """
+  """
+  airedEnd: Object
+  """
+  """
+  season: Object
+  """
+  """
+  rating: String
+  """
+  """
+  broadcastInterval: BigInt
+  """
+  """
+  relatedShows: [Object]
+  """
+  """
+  relatedMangas: [Object]
+  """
+  """
+  characters: [Object]
+  """
+  """
+  pageStatus: PageStatus
+  """
+  """
+  determinedInterval: Object
+  """
+  """
+  slugTime: BigInt
+  """
+  """
+  chapterCount: BigInt
+  """
+  """
+  volumes: BigInt
+  """
+  """
+  magazine: String
+  """
+  """
+  authors: [String]
+  """
+  """
+  lastChapterDate: Object
+  """
+  """
+  lastChapterTimestamp: Object
+  """
+  """
+  lastChapterInfo: Object
+  """
+  """
+  availableChapters: Object
+  """
+  """
+  availableChaptersDetail: Object
+}
+
+"""
+"""
+type EpisodesConnection {
+  """
+  """
+  edges: [Episode!]
+  """
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+"""
+type Episode {
+  """
+  """
+  _id: String
+  """
+  """
+  showId: String
+  """
+  """
+  episodeString: String
+  """
+  """
+  episodeNumStart: BigInt
+  """
+  """
+  episodeNumEnd: BigInt
+  """
+  """
+  notes: String
+  """
+  """
+  description: String
+  """
+  """
+  episodeAiredDateString: String
+  """
+  """
+  translationType: VaildTranslationTypeEnumType
+  """
+  """
+  sourceUrls: Object
+  """
+  """
+  thumbnail: String
+  """
+  """
+  videoUrlProcessed: Boolean
+  """
+  """
+  downloadQueue: BigInt
+  """
+  """
+  uploadDate: Object
+  """
+  """
+  show: Show
+  """
+  """
+  versionFix: String
+  """
+  """
+  episodeInfo: EpisodeInfo
+  """
+  """
+  pageStatus: PageStatus
+}
+
+"""
+"""
+type EpisodeInfo {
+  """
+  """
+  _id: String
+  """
+  """
+  notes: String
+  """
+  """
+  description: String
+  """
+  """
+  pictureUrlsProcessed: BigInt
+  """
+  """
+  isManga: Boolean
+  """
+  """
+  thumbnails: [String]
+  """
+  """
+  uploadDates: Object
+  """
+  """
+  showId: String
+  """
+  """
+  episodeIdNum: Float
+  """
+  """
+  vidInforssub: Object
+  """
+  """
+  vidInforsdub: Object
+  """
+  """
+  vidInforsraw: Object
+}
+
+"""
+"""
+type ChaptersConnection {
+  """
+  """
+  edges: [Chapter!]
+  """
+  """
+  pageInfo: PageInfo
+  """
+  """
+  pageStatus: PageStatus!
+  """
+  """
+  manga: Manga
+}
+
+"""
+"""
+type Chapter {
+  """
+  """
+  _id: String
+  """
+  """
+  mangaId: String
+  """
+  """
+  chapterString: String
+  """
+  """
+  chapterNumStart: BigInt
+  """
+  """
+  chapterNumEnd: BigInt
+  """
+  """
+  notes: String
+  """
+  """
+  chapterAiredDateString: String
+  """
+  """
+  volume: BigInt
+  """
+  """
+  translationType: VaildTranslationTypeEnumType
+  """
+  """
+  thumbnail: String
+  """
+  """
+  videoUrlProcessed: Boolean
+  """
+  """
+  downloadQueue: BigInt
+  """
+  """
+  uploadDate: Object
+  """
+  """
+  pictureUrls: [Object]
+  """
+  """
+  pictureUrlsProcessed: BigInt
+  """
+  """
+  streamerId: String
+  """
+  """
+  sourceName: String
+  """
+  """
+  sourceUrl: String
+  """
+  """
+  versionFix: String
+  """
+  """
+  pictureUrlHead: String
+  """
+  """
+  priority: Int
+  """
+  """
+  pictureServers: [Object]
+}
+
+"""
+"""
+type Character {
+  """
+  """
+  _id: String
+  """
+  """
+  aniListId: Int
+  """
+  """
+  showId: String
+  """
+  """
+  mangaId: String
+  """
+  """
+  lastUpdateStart: DateTime
+  """
+  """
+  lastUpdateEnd: DateTime
+  """
+  """
+  name: Object
+  """
+  """
+  altNames: [String]
+  """
+  """
+  thumbnails: [String]
+  """
+  """
+  image: Object
+  """
+  """
+  description: String
+  """
+  """
+  searchFragments: String
+  """
+  """
+  firstCharacters: String
+  """
+  """
+  views: BigInt
+  """
+  """
+  likesCount: BigInt
+  """
+  """
+  commentCount: BigInt
+  """
+  """
+  dislikesCount: BigInt
+  """
+  """
+  userScoreCount: BigInt
+  """
+  """
+  reviewCount: BigInt
+  """
+  """
+  userScoreTotalValue: Float
+  """
+  """
+  userScoreAverValue: Float
+  """
+  """
+  viewers: ValidViewers
+  """
+  """
+  pgRelation: PageRelation
+}
+
+"""
+"""
+type Stuff {
+  """
+  """
+  _id: String
+  """
+  """
+  aniListId: Int
+  """
+  """
+  lastUpdateStart: DateTime
+  """
+  """
+  lastUpdateEnd: DateTime
+  """
+  """
+  name: Object
+  """
+  """
+  image: Object
+  """
+  """
+  description: String
+  """
+  """
+  voiceActingShows: ShowsConnection
+}
+
+"""
+"""
+input MusicSearchInput {
+  """
+  """
+  query: String
+  """
+  """
+  types: [String]
+  """
+  """
+  artists: [String]
+  """
+  """
+  sortBy: SortBy
+}
+
+"""
+"""
+type MusicsConnection {
+  """
+  """
+  edges: [Music!]
+  """
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+"""
+type Music {
+  """
+  """
+  _id: String
+  """
+  """
+  fileName: String
+  """
+  """
+  musicTitle: Object
+  """
+  """
+  type: String
+  """
+  """
+  slug: String
+  """
+  """
+  artist: Object
+  """
+  """
+  show: ShowForMusic
+  """
+  """
+  cover: String
+  """
+  """
+  format: String
+  """
+  """
+  description: String
+  """
+  """
+  duration: Float
+  """
+  """
+  album: String
+  """
+  """
+  musicUrls: [Object]
+  """
+  """
+  recommendation: [Music]
+  """
+  """
+  size: Float
+  """
+  """
+  content_type: String
+  """
+  """
+  editDate: DateTime
+  """
+  """
+  createdDate: DateTime
+  """
+  """
+  listeners: [Listenter]
+  """
+  """
+  listens: Int
+  """
+  """
+  lyrics: [Object]
+  """
+  """
+  likes: [String]
+  """
+  """
+  likesCount: Int
+  """
+  """
+  dislikesCount: Int
+  """
+  """
+  dislikes: [String]
+  """
+  """
+  lastUpdateStart: BigInt
+  """
+  """
+  lastUpdateEnd: BigInt
+  """
+  """
+  rangeListens: Int
+}
+
+"""
+"""
+type ShowForMusic {
+  """
+  """
+  showId: String
+  """
+  """
+  name: String
+  """
+  """
+  nativeName: String
+  """
+  """
+  thumbnail: String
+}
+
+"""
+"""
+type Listenter {
+  """
+  """
+  userId: String
+  """
+  """
+  listenCount: Int
+  """
+  """
+  lastListenedDate: DateTime
+}
+
+"""
+"""
+type Playlist {
+  """
+  """
+  _id: String
+  """
+  """
+  format: VaildPlaylistEnumType
+  """
+  """
+  userId: String
+  """
+  """
+  userName: String
+  """
+  """
+  userAvatar: String
+  """
+  """
+  user: UserDisplay
+  """
+  """
+  title: String
+  """
+  """
+  createdDate: DateTime
+  """
+  """
+  modifiedDate: DateTime
+  """
+  """
+  cover: String
+  """
+  """
+  firstItemId: String
+  """
+  """
+  itemCount: Int
+  """
+  """
+  privacy: VaildPrivacyEnumType
+  """
+  """
+  lastActionDate: DateTime
+  """
+  """
+  favList: [FavEntity]
+  """
+  """
+  favListCount: Int
+  """
+  """
+  views: BigInt
+}
+
+"""
+"""
+enum VaildPlaylistEnumType {
+  """
+  """
+  anime
+  """
+  """
+  manga
+  """
+  """
+  music
+  """
+  """
+  episode
+  """
+  """
+  chapter
+}
+
+"""
+"""
+enum VaildPrivacyEnumType {
+  """
+  """
+  Public
+  """
+  """
+  Private
+}
+
+"""
+"""
+type FavEntity {
+  """
+  """
+  userId: String
+  """
+  """
+  addedDate: DateTime
+}
+
+"""
+"""
+type PlaylistResponse {
+  """
+  """
+  edges: [Playlist!]
+  """
+  """
+  pageInfo: PageInfo
+}
+
+"""
+"""
+input UserPlaylistsSearch {
+  """
+  """
+  sortBy: SortByPlaylists
+  """
+  """
+  formats: [VaildPlaylistEnumType]
+  """
+  """
+  size: Int
+  """
+  """
+  page: Int
+  """
+  """
+  userId: String
+}
+
+"""
+"""
+enum SortByPlaylists {
+  """
+  """
+  views
+  """
+  """
+  favListCount
+  """
+  """
+  createdDate
+  """
+  """
+  lastActionDate
+  """
+  """
+  itemCount
+}
+
+"""
+"""
+type MyOwnPlaylistResponse {
+  """
+  """
+  edges: [MyPlaylist!]
+  """
+  """
+  pageInfo: PageInfo
+}
+
+"""
+"""
+type MyPlaylist {
+  """
+  """
+  _id: String
+  """
+  """
+  format: VaildPlaylistEnumType
+  """
+  """
+  userId: String
+  """
+  """
+  userName: String
+  """
+  """
+  userAvatar: String
+  """
+  """
+  user: UserDisplay
+  """
+  """
+  title: String
+  """
+  """
+  createdDate: DateTime
+  """
+  """
+  modifiedDate: DateTime
+  """
+  """
+  cover: String
+  """
+  """
+  firstItemId: String
+  """
+  """
+  itemCount: Int
+  """
+  """
+  privacy: VaildPrivacyEnumType
+  """
+  """
+  lastActionDate: DateTime
+  """
+  """
+  favList: [FavEntity]
+  """
+  """
+  favListCount: Int
+  """
+  """
+  views: BigInt
+}
+
+"""
+"""
+input PageInput {
+  """
+  """
+  showId: String!
+  """
+  """
+  episodeId: String
+  """
+  """
+  isManga: Boolean
+  """
+  """
+  translationType: VaildTranslationTypeEnumType
+}
+
+"""
+"""
+input queryPageInput {
+  """
+  """
+  type: VaildPopularTypeEnumType!
+  """
+  """
+  allowSameShow: Boolean
+  """
+  """
+  excludedShowIds: [String!]
+  """
+  """
+  showId: String
+  """
+  """
+  episodeId: String
+  """
+  """
+  size: Int
+  """
+  """
+  page: Int
+  """
+  """
+  translationType: VaildTranslationTypeEnumType
+  """
+  """
+  userId: String
+  """
+  """
+  isAdult: Boolean
+  """
+  """
+  allowAdult: Boolean
+  """
+  """
+  denyEcchi: Boolean
+  """
+  """
+  allowUnknown: Boolean
+  """
+  """
+  dateAgo: Int
+  """
+  """
+  pageId: String
+  """
+  """
+  pageType: VaildRecommendationEnumType
+}
+
+"""
+"""
+enum VaildPopularTypeEnumType {
+  """
+  """
+  anime
+  """
+  """
+  manga
+  """
+  """
+  all
+}
+
+"""
+"""
+enum VaildRecommendationEnumType {
+  """
+  """
+  ep_cp
+  """
+  """
+  anime_manga
+  """
+  """
+  music
+}
+
+"""
+"""
+type RecommendationsResponse {
+  """
+  """
+  total: Int
+  """
+  """
+  recommendations: [Recommendation!]
+}
+
+"""
+"""
+type Recommendation {
+  """
+  """
+  pageStatus: PageStatus!
+  """
+  """
+  anyCard: AnyCard
+  """
+  """
+  isManga: Boolean
+}
+
+"""
+"""
+type PageRelationResponse {
+  """
+  """
+  myPage: PageRelation
+}
+
+"""
+"""
+type PageRelationLikesResponse {
+  """
+  """
+  myLikes: [PageRelationLikes]
+}
+
+"""
+"""
+type PageRelationLikes {
+  """
+  """
+  _id: String
+  """
+  """
+  format: VaildPageRelationLikesFormatEnumType
+  """
+  """
+  showId: String
+  """
+  """
+  userId: String
+  """
+  """
+  like: DateTime
+  """
+  """
+  dislike: DateTime
+}
+
+"""
+"""
+enum VaildPageRelationLikesFormatEnumType {
+  """
+  """
+  review
+  """
+  """
+  comment
+  """
+  """
+  post
+  """
+  """
+  poll
+  """
+  """
+  others
+}
+
+"""
+"""
+input CommentsSearch {
+  """
+  """
+  sortBy: SortBy
+  """
+  """
+  format: VaildPageRelationLikesFormatEnumType!
+  """
+  """
+  referenceId: String!
+  """
+  """
+  size: Int
+  """
+  """
+  page: Int
+}
+
+"""
+"""
+type CommentResponse {
+  """
+  """
+  edges: [Comment]
+  """
+  """
+  pageInfo: PageInfo
+}
+
+"""
+"""
+type Comment {
+  """
+  """
+  _id: String
+  """
+  """
+  comment: Object
+  """
+  """
+  referenceId: String
+  """
+  """
+  replyTo: [String]
+  """
+  """
+  userId: String
+  """
+  """
+  user: User
+  """
+  """
+  myLike: PageRelationLikes
+  """
+  """
+  format: String
+}
+
+"""
+"""
+input ReviewsSearch {
+  """
+  """
+  sortBy: SortBy
+  """
+  """
+  format: VaildPageRelationFormatEnumType!
+  """
+  """
+  allowSameShow: Boolean
+  """
+  """
+  showId: String
+  """
+  """
+  episodeId: String
+  """
+  """
+  size: Int
+  """
+  """
+  page: Int
+  """
+  """
+  translationType: VaildTranslationTypeEnumType
+  """
+  """
+  userId: String
+}
+
+"""
+"""
+type ReviewResponse {
+  """
+  """
+  edges: [Review]
+  """
+  """
+  pageInfo: PageInfo
+}
+
+"""
+"""
+type Review {
+  """
+  """
+  _id: String
+  """
+  """
+  comment: Object
+  """
+  """
+  uScore: Object
+  """
+  """
+  user: UserDisplay
+  """
+  """
+  userId: String
+  """
+  """
+  showId: String
+  """
+  """
+  episodeIdNum: Float
+  """
+  """
+  language: String
+  """
+  """
+  myLike: PageRelationLikes
+  """
+  """
+  views: Object
+  """
+  """
+  format: String
+  """
+  """
+  relatedItem: Object
+}
+
+"""
+"""
+input UserReviewsSearch {
+  """
+  """
+  sortBy: SortBy
+  """
+  """
+  formats: [VaildPageRelationFormatEnumType]
+  """
+  """
+  allowSameShow: Boolean
+  """
+  """
+  size: Int
+  """
+  """
+  page: Int
+  """
+  """
+  userId: String
+}
+
+"""
+"""
+input UserCommentsSearch {
+  """
+  """
+  format: VaildPageRelationLikesFormatEnumType
+  """
+  """
+  referenceId: String
+  """
+  """
+  userId: String
+  """
+  """
+  size: Int
+  """
+  """
+  page: Int
+}
+
+"""
+"""
+input UserActivitiesSearch {
+  """
+  """
+  sortBy: SortBy
+  """
+  """
+  formats: [VaildPageRelationFormatEnumType]
+  """
+  """
+  allowSameShow: Boolean
+  """
+  """
+  size: Int
+  """
+  """
+  page: Int
+  """
+  """
+  userId: String!
+  """
+  """
+  activityType: ValidActivityTypeEnumType
+}
+
+"""
+"""
+enum ValidActivityTypeEnumType {
+  """
+  """
+  views
+  """
+  """
+  like
+  """
+  """
+  dislike
+  """
+  """
+  comment
+  """
+  """
+  uScore
+}
+
+"""
+"""
+type ActivityResponse {
+  """
+  """
+  edges: [PageRelation]
+  """
+  """
+  pageInfo: PageInfo
+}
+
+"""
+"""
+type WatchState {
+  """
+  """
+  _id: String
+  """
+  """
+  showId: String
+  """
+  """
+  watchingCount: Int
+  """
+  """
+  droppedCount: Int
+  """
+  """
+  completedCount: Int
+  """
+  """
+  plannedCount: Int
+  """
+  """
+  heldCount: Int
+  """
+  """
+  isManga: Boolean
+  """
+  """
+  watching: [WatchingEntity]
+  """
+  """
+  dropped: [WatchingEntity]
+  """
+  """
+  planned: [WatchingEntity]
+  """
+  """
+  completed: [WatchingEntity]
+  """
+  """
+  held: [WatchingEntity]
+  """
+  """
+  lastEpisodeTimestamp: Object
+  """
+  """
+  showName: String
+  """
+  """
+  lastEpisodeInfo: Object
+}
+
+"""
+"""
+type WatchingEntity {
+  """
+  """
+  userId: String
+  """
+  """
+  addedDate: DateTime
+}
+
+"""
+"""
+enum VaildWatchingCardTypeEnumType {
+  """
+  """
+  anime
+  """
+  """
+  manga
+  """
+  """
+  all
+}
+
+"""
+"""
+enum VaildWatchingEnumType {
+  """
+  """
+  watching
+  """
+  """
+  dropped
+  """
+  """
+  planned
+  """
+  """
+  completed
+  """
+  """
+  held
+}
+
+"""
+"""
+enum SortByWatchState {
+  """
+  """
+  UPLOAD_TIME
+  """
+  """
+  ADDED_DATE
+}
+
+"""
+"""
+type WatchListResponse {
+  """
+  """
+  edges: [Overview!]
+  """
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+"""
+type Overview {
+  """
+  """
+  anyCard: AnyCard
+  """
+  """
+  isManga: Boolean
+  """
+  """
+  watchState: WatchState
+  """
+  """
+  pgRelation: PageRelation
+}
+
+"""
+"""
+input UserListInput {
+  """
+  """
+  format: USER_LIST_SORT_FORMAT
+  """
+  """
+  filter: Int
+  """
+  """
+  sort: VAILD_USER_SORT_BY
+}
+
+"""
+"""
+enum USER_LIST_SORT_FORMAT {
+  """
+  """
+  anime
+  """
+  """
+  manga
+  """
+  """
+  episodes
+  """
+  """
+  chapters
+  """
+  """
+  users
+  """
+  """
+  characters
+  """
+  """
+  music
+  """
+  """
+  totals
+}
+
+"""
+"""
+enum VAILD_USER_SORT_BY {
+  """
+  """
+  commentsCount
+  """
+  """
+  reviewsCount
+  """
+  """
+  liked
+  """
+  """
+  viewed
+  """
+  """
+  scoresCount
+  """
+  """
+  disliked
+}
+
+"""
+"""
+type UsersConnection {
+  """
+  """
+  edges: [UserDisplay!]
+  """
+  """
+  pageInfo: PageInfo
+}
+
+"""
+"""
+input TagSearchInput {
+  """
+  """
+  sortBy: SortBy
+  """
+  """
+  sortDirection: SortDirection
+  """
+  """
+  query: String
+  """
+  """
+  format: String
+  """
+  """
+  tagType: String
+  """
+  """
+  queryType: TagSearchType
+  """
+  """
+  allowAdult: Boolean
+  """
+  """
+  allowUnknown: Boolean
+  """
+  """
+  denyEcchi: Boolean
+}
+
+"""
+"""
+enum TagSearchType {
+  """
+  """
+  Popular
+  """
+  """
+  Home
+  """
+  """
+  Trending
+  """
+  """
+  Default
+}
+
+"""
+"""
+type TagsConnection {
+  """
+  """
+  edges: [Tag!]
+  """
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+"""
+type Tag {
+  """
+  """
+  _id: String
+  """
+  """
+  name: String
+  """
+  """
+  anime: Int
+  """
+  """
+  manga: Int
+  """
+  """
+  episode: Int
+  """
+  """
+  chapter: Int
+  """
+  """
+  other: Int
+  """
+  """
+  sampleAnime: Object
+  """
+  """
+  animeCount: Int
+  """
+  """
+  mangaCount: Int
+  """
+  """
+  sampleManga: Object
+  """
+  """
+  tagType: String
+  """
+  """
+  slug: String
+  """
+  """
+  views: Int
+  """
+  """
+  viewers: [Viewer]
+  """
+  """
+  likesCount: Int
+  """
+  """
+  likes: [String]
+  """
+  """
+  dislikesCount: Int
+  """
+  """
+  dislikes: [String]
+}
+
+"""
+"""
+input ListForTagInput {
+  """
+  """
+  slug: String
+  """
+  """
+  format: String!
+  """
+  """
+  page: Int
+  """
+  """
+  offset: Int
+  """
+  """
+  limit: Int
+  """
+  """
+  name: String
+  """
+  """
+  tagType: TagType
+  """
+  """
+  allowAdult: Boolean
+  """
+  """
+  allowUnknown: Boolean
+  """
+  """
+  denyEcchi: Boolean
+}
+
+"""
+"""
+enum TagType {
+  """
+  """
+  generic
+  """
+  """
+  studio
+  """
+  """
+  magazine
+  """
+  """
+  author
+  """
+  """
+  random
+  """
+  """
+  recentUpdates
+  """
+  """
+  newSeason
+  """
+  """
+  upcoming
+  """
+  """
+  movie
+}
+
+"""
+"""
+type TagListRecommendationsResponse {
+  """
+  """
+  edges: [AnyCard]
+  """
+  """
+  pageInfo: PageInfo
+}
+
+"""
+"""
+type Mutation {
+  """
+  """
+  createUser(
+    """
+    """
+    user: CreateUserInput!
+    """
+    """
+    recaptchCode: String
+  ): CreateUserResult
+  """
+  """
+  verifyEmail(
+    """
+    """
+    token: String!
+  ): Boolean
+  """
+  """
+  resetPassword(
+    """
+    """
+    token: String!
+    """
+    """
+    newPassword: String!
+  ): LoginResult
+  """
+  """
+  sendVerificationEmail(
+    """
+    """
+    email: String!
+    """
+    """
+    recaptchCode: String
+  ): Boolean
+  """
+  """
+  sendResetPasswordEmail(
+    """
+    """
+    email: String!
+    """
+    """
+    recaptchCode: String
+  ): Boolean
+  """
+  """
+  addEmail(
+    """
+    """
+    newEmail: String!
+  ): Boolean
+  """
+  """
+  changePassword(
+    """
+    """
+    oldPassword: String!
+    """
+    """
+    newPassword: String!
+  ): Boolean
+  """
+  """
+  twoFactorSet(
+    """
+    """
+    secret: TwoFactorSecretKeyInput!
+    """
+    """
+    code: String!
+  ): Boolean
+  """
+  """
+  twoFactorUnset(
+    """
+    """
+    code: String!
+  ): Boolean
+  """
+  """
+  impersonate(
+    """
+    """
+    accessToken: String!
+    """
+    """
+    impersonated: ImpersonationUserIdentityInput!
+  ): ImpersonateReturn
+  """
+  """
+  refreshTokens(
+    """
+    """
+    accessToken: String!
+    """
+    """
+    refreshToken: String!
+  ): LoginResult
+  """
+  """
+  logout: Boolean
+  """
+  """
+  authenticate(
+    """
+    """
+    serviceName: String!
+    """
+    """
+    params: AuthenticateParamsInput!
+  ): LoginResult
+  """
+  """
+  verifyAuthentication(
+    """
+    """
+    serviceName: String!
+    """
+    """
+    params: AuthenticateParamsInput!
+  ): Boolean
+  """
+  """
+  listenMusic(
+    """
+    """
+    _id: String!
+    """
+    """
+    userId: String
+  ): MusicActionResponse!
+  """
+  """
+  createPlaylist(
+    """
+    """
+    format: VaildPlaylistEnumType!
+    """
+    """
+    title: String
+    """
+    """
+    privacy: VaildPrivacyEnumType
+  ): PlaylistActionResponse
+  """
+  """
+  addPlayId(
+    """
+    """
+    format: VaildPlaylistEnumType!
+    """
+    """
+    playId: String!
+    """
+    """
+    privacy: VaildPrivacyEnumType
+    """
+    """
+    playTitle: String
+    """
+    """
+    playlistId: String!
+    """
+    """
+    cover: String
+  ): PlaylistActionResponse
+  """
+  """
+  editPlaylist(
+    """
+    """
+    playlistId: String
+    """
+    """
+    title: String
+    """
+    """
+    privacy: VaildPrivacyEnumType
+  ): PlaylistActionResponse
+  """
+  """
+  toggleFavPlaylist(
+    """
+    """
+    playlistId: String!
+    """
+    """
+    relatedField: Object
+  ): PlaylistActionResponse
+  """
+  """
+  removePlayId(
+    """
+    """
+    playId: String!
+    """
+    """
+    playlistId: String!
+  ): PlaylistActionResponse
+  """
+  """
+  viewPage(
+    """
+    """
+    _id: String!
+    """
+    """
+    type: VaildPageRelationFormatEnumType!
+    """
+    """
+    showId: String
+    """
+    """
+    episodeId: String
+    """
+    """
+    translationType: VaildTranslationTypeEnumType
+    """
+    """
+    isAdult: Boolean
+    """
+    """
+    relatedField: Object
+  ): PageActionResponse!
+  """
+  """
+  likePage(
+    """
+    """
+    _id: String!
+    """
+    """
+    type: VaildPageRelationFormatEnumType!
+    """
+    """
+    relatedField: Object
+  ): PageActionResponse!
+  """
+  """
+  scorePage(
+    """
+    """
+    _id: String!
+    """
+    """
+    type: VaildPageRelationFormatEnumType!
+    """
+    """
+    score: UserScore!
+    """
+    """
+    relatedField: Object
+  ): PageActionResponse!
+  """
+  """
+  dislikePage(
+    """
+    """
+    _id: String!
+    """
+    """
+    type: VaildPageRelationFormatEnumType!
+    """
+    """
+    relatedField: Object
+  ): PageActionResponse!
+  """
+  """
+  reportProblem(
+    """
+    """
+    _id: String!
+    """
+    """
+    type: VaildPageRelationFormatEnumType!
+    """
+    """
+    reportBody: ReportBody!
+  ): PageActionResponse!
+  """
+  """
+  reviewPage(
+    """
+    """
+    _id: String!
+    """
+    """
+    type: VaildPageRelationFormatEnumType!
+    """
+    """
+    commentBody: CommentBody!
+    """
+    """
+    relatedField: Object
+  ): PageActionResponse!
+  """
+  """
+  createComment(
+    """
+    """
+    referenceId: String!
+    """
+    """
+    replyTo: [String]
+    """
+    """
+    type: VaildCommentFormatEnumType!
+    """
+    """
+    commentBody: CommentBody!
+    """
+    """
+    statisticType: VaildStatisticsEnumType!
+    """
+    """
+    relatedField: Object
+  ): PageActionResponse!
+  """
+  """
+  updateComment(
+    """
+    """
+    _id: String!
+    """
+    """
+    replyTo: [String]
+    """
+    """
+    statisticType: VaildStatisticsEnumType
+    """
+    """
+    commentBody: CommentBody!
+  ): PageActionResponse!
+  """
+  """
+  editReview(
+    """
+    """
+    _id: String!
+    """
+    """
+    statisticType: VaildStatisticsEnumType
+    """
+    """
+    commentBody: CommentBody!
+  ): PageActionResponse!
+  """
+  """
+  deleteComment(
+    """
+    """
+    _id: String!
+    """
+    """
+    referenceId: String!
+    """
+    """
+    type: VaildCommentFormatEnumType!
+    """
+    """
+    statisticType: VaildStatisticsEnumType!
+  ): PageActionResponse!
+  """
+  """
+  likeDislikeComment(
+    """
+    """
+    _id: String!
+    """
+    """
+    type: VaildPageRelationLikesFormatEnumType!
+    """
+    """
+    actionName: ValidLikeDislike!
+    """
+    """
+    relatedField: Object
+  ): PageActionResponse!
+  """
+  """
+  toggleWatching(
+    """
+    """
+    type: VaildWatchingEnumType!
+    """
+    """
+    watchStateId: String!
+    """
+    """
+    userId: String!
+  ): WatchingActionResponse
+  """
+  """
+  changeWatching(
+    """
+    """
+    type: VaildWatchingEnumType!
+    """
+    """
+    watchStateId: String!
+    """
+    """
+    userId: String!
+  ): WatchingActionResponse
+  """
+  """
+  changeCurrentOnlineState(
+    """
+    """
+    userOnlineState: UserOnlineState
+  ): UserOnlineStatics
+  """
+  """
+  resumeLogin: User
+  """
+  """
+  deleteAccount(
+    """
+    """
+    recaptchCode: String!
+    """
+    """
+    typingUserId: String!
+  ): SuccessResponse
+  """
+  """
+  changeProfile(
+    """
+    """
+    userInput: UserProfileInput!
+  ): User
+  """
+  """
+  resendVerificationLink(
+    """
+    """
+    email: String!
+    """
+    """
+    recaptchCode: String
+  ): SuccessResponse
+  """
+  """
+  toggleAppsAccessbility(
+    """
+    """
+    type: String!
+    """
+    """
+    value: String
+  ): AppSettings!
+}
+
+"""
+"""
+input CreateUserInput {
+  """
+  """
+  username: String
+  """
+  """
+  email: String
+  """
+  """
+  password: String
+}
+
+"""
+"""
+type CreateUserResult {
+  """
+  """
+  userId: ID
+  """
+  """
+  loginResult: LoginResult
+}
+
+"""
+"""
+type LoginResult {
+  """
+  """
+  sessionId: String
+  """
+  """
+  tokens: Tokens
+  """
+  """
+  user: User
+}
+
+"""
+"""
+type Tokens {
+  """
+  """
+  refreshToken: String
+  """
+  """
+  accessToken: String
+}
+
+"""
+"""
+input TwoFactorSecretKeyInput {
+  """
+  """
+  ascii: String
+  """
+  """
+  base32: String
+  """
+  """
+  hex: String
+  """
+  """
+  qr_code_ascii: String
+  """
+  """
+  qr_code_hex: String
+  """
+  """
+  qr_code_base32: String
+  """
+  """
+  google_auth_qr: String
+  """
+  """
+  otpauth_url: String
+}
+
+"""
+"""
+input ImpersonationUserIdentityInput {
+  """
+  """
+  userId: String
+  """
+  """
+  username: String
+  """
+  """
+  email: String
+}
+
+"""
+"""
+type ImpersonateReturn {
+  """
+  """
+  authorized: Boolean
+  """
+  """
+  tokens: Tokens
+  """
+  """
+  user: User
+}
+
+"""
+"""
+input AuthenticateParamsInput {
+  """
+  """
+  access_token: String
+  """
+  """
+  access_token_secret: String
+  """
+  """
+  provider: String
+  """
+  """
+  password: String
+  """
+  """
+  user: UserInput
+  """
+  """
+  code: String
+  """
+  """
+  recaptchCode: String
+}
+
+"""
+"""
+input UserInput {
+  """
+  """
+  id: ID
+  """
+  """
+  email: String
+  """
+  """
+  username: String
+}
+
+"""
+"""
+type MusicActionResponse {
+  """
+  """
+  success: Boolean
+  """
+  """
+  error: Object
+}
+
+"""
+"""
+type PlaylistActionResponse {
+  """
+  """
+  success: Boolean
+  """
+  """
+  playlist: Playlist
+  """
+  """
+  error: Error
+}
+
+"""
+"""
+type Error {
+  """
+  """
+  message: String
+  """
+  """
+  code: Int
+}
+
+"""
+"""
+type PageActionResponse {
+  """
+  """
+  success: Boolean
+  """
+  """
+  error: Object
+  """
+  """
+  fields: Object
+}
+
+"""
+"""
+input UserScore {
+  """
+  """
+  scoreValue: Float
+  """
+  """
+  comments: String
+}
+
+"""
+"""
+input ReportBody {
+  """
+  """
+  problem: String!
+  """
+  """
+  email: String
+  """
+  """
+  describing: String
+  """
+  """
+  userId: String
+  """
+  """
+  date: DateTime
+}
+
+"""
+"""
+input CommentBody {
+  """
+  """
+  content: String!
+  """
+  """
+  disableReply: Boolean
+}
+
+"""
+"""
+enum VaildCommentFormatEnumType {
+  """
+  """
+  review
+  """
+  """
+  post
+  """
+  """
+  poll
+  """
+  """
+  others
+}
+
+"""
+"""
+enum VaildStatisticsEnumType {
+  """
+  """
+  anime
+  """
+  """
+  manga
+  """
+  """
+  music
+  """
+  """
+  episodes
+  """
+  """
+  chapters
+  """
+  """
+  users
+  """
+  """
+  characters
+}
+
+"""
+"""
+enum ValidLikeDislike {
+  """
+  """
+  like
+  """
+  """
+  dislike
+}
+
+"""
+"""
+type WatchingActionResponse {
+  """
+  """
+  success: Boolean
+}
+
+"""
+"""
+input UserOnlineState {
+  """
+  """
+  routers: [String]
+}
+
+"""
+"""
+type UserOnlineStatics {
+  """
+  """
+  counts: Object
+}
+
+"""
+"""
+type SuccessResponse {
+  """
+  """
+  error: String
+  """
+  """
+  success: Boolean
+}
+
+"""
+"""
+input UserProfileInput {
+  """
+  """
+  displayName: String
+  """
+  """
+  hideMe: Boolean
+  """
+  """
+  picture: String
+  """
+  """
+  coverImg: String
+  """
+  """
+  description: String
+  """
+  """
+  brief: String
+}
+
+"""
+"""
+type AppSettings {
+  """
+  """
+  type: String
+  """
+  """
+  value: String
+}
+
+"""
+"""
+type Subscription {
+  """
+  """
+  _: Boolean
+  """
+  """
+  newEpisodeAdded(
+    """
+    """
+    notificationLevel: [NotificationType]
+  ): Message
+  """
+  """
+  userOnlineStatusChanged(
+    """
+    """
+    routers: [String]
+  ): UserOnlineStatics
+}
+
+"""
+"""
+enum NotificationType {
+  """
+  """
+  anime
+  """
+  """
+  manga
+  """
+  """
+  app
+  """
+  """
+  music
+  """
+  """
+  user
+}
+
+"""
+"""
+type Message {
+  """
+  """
+  date: BigInt
+  """
+  """
+  data: Object
+  """
+  """
+  title: String!
+  """
+  """
+  content: String
+  """
+  """
+  duration: Int
+  """
+  """
+  type: NotificationType
+}
+
+"""
+"""
+enum VaildTypesEnumType {
+  """
+  """
+  TV
+  """
+  """
+  OVA
+  """
+  """
+  Movie
+  """
+  """
+  Special
+  """
+  """
+  ONA
+}
+
+"""
+"""
+enum ValidActionType {
+  """
+  """
+  edit
+  """
+  """
+  remove
+}
+
+"""
+"""
+enum VaildSerivesEnumType {
+  """
+  """
+  password
+  """
+  """
+  google
+}
+
+"""
+"""
+type Image {
+  """
+  """
+  medium: String
+  """
+  """
+  large: String
+}
+
+"""
+"""
+type MusicResponse {
+  """
+  """
+  musicsLinks: [Object]
+  """
+  """
+  resultMusics: [Music]
+}
+
+"""
+"""
+type CommentEditted {
+  """
+  """
+  times: Int
+  """
+  """
+  date: DateTime
+  """
+  """
+  from: BigInt
+}
+
+"""
+"""
+type ScoreUser {
+  """
+  """
+  userId: String
+  """
+  """
+  scoreValue: Float
+  """
+  """
+  scoreDate: DateTime
+  """
+  """
+  comments: String
+}
+
+"""
+"""
+input MessageNotificationLevel {
+  """
+  """
+  anime: Int
+  """
+  """
+  manga: Int
+  """
+  """
+  system: Int
+  """
+  """
+  music: Int
+  """
+  """
+  user: Int
+}
+
+"""
+"""
+type Token {
+  """
+  """
+  token: String!
+}
+
+"""
+"""
+type Badge {
+  """
+  """
+  name: String
+  """
+  """
+  rank: Int
+  """
+  """
+  date: DateTime
+}
+
+"""
+"""
+type OnlineChanged {
+  """
+  """
+  onlineResult: OnlineResult!
+}
+
+"""
+"""
+type OnlineResult {
+  """
+  """
+  id: String
+}
+
+"""
+"""
+type AppAccessbility {
+  """
+  """
+  appDisabled: Object
+  """
+  """
+  appNeedCheckLogin: Object
+}
+
+"""
+"""
+enum CacheControlScope {
+  """
+  """
+  PUBLIC
+  """
+  """
+  PRIVATE
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime

@@ -6,12 +6,20 @@ procs:
       PORT: "3000"
 
   backend:
-    cmd: ["cargo", "watch", "--clear", "--quiet", "--exec", "run"]
+    cmd:
+      [
+        "cargo",
+        "watch",
+        "--clear",
+        "--quiet",
+        "--ignore",
+        "./dev/**/*",
+        "--ignore",
+        "./crates/migration/**/*",
+        "--exec",
+        "run",
+      ]
     cwd: "backend"
-    env:
-      PORT: "3001"
-      ROCKET_SECRET_KEY: "/fmesnM6lBu7NjuT3Qa9BF/HWJmElH2tP7mJ5LXUvn4="
 
   caddy:
     cmd: ["doas", "caddy", "run", "--config", "Caddyfile"]
-    autostart: false
