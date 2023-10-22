@@ -6,7 +6,7 @@ import {
   AddNewSourceButton,
   DeleteSourceButton,
   EditAnimeInfoButton,
-} from "./client";
+} from "./page.client";
 
 export const generateMetadata = async (props: PageProps<{ id: string }>) => {
   const data = await fetchAnimeInfo(Number(props.params.id));
@@ -94,7 +94,7 @@ export default async function PageAnimeIdHome({
               <span className="absolute -left-2 bottom-0 -translate-x-full select-none text-white/50">
                 /\.
               </span>
-              <AddNewSourceButton />
+              <AddNewSourceButton forAnimeId={anime.id} />
             </li>
           </ul>
         </section>

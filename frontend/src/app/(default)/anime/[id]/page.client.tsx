@@ -5,7 +5,6 @@ import {
   Button,
   type ComboboxData,
   Fieldset,
-  LoadingOverlay,
   Modal,
   NumberInput,
   Select,
@@ -16,7 +15,7 @@ import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { type FC, type ReactNode, useMemo } from "react";
 import {
@@ -25,10 +24,7 @@ import {
 } from "react-icons/tb";
 
 import { type Anime } from "~/api/v1/$models";
-import {
-  list as fetchAnimeList,
-  update as updateAnimeInfo,
-} from "~/api/v1/anime";
+import { update as updateAnimeInfo } from "~/api/v1/anime";
 import {
   add as addAnimeSource,
   remove as removeAnimeSource,
@@ -49,55 +45,29 @@ const seriesSiteOptions = [
   },
 ] satisfies ComboboxData;
 
-export const AddNewSourceButton: FC = () => {
+export const AddNewSourceButton: FC<{ forAnimeId: number }> = (props) => {
   const router = useRouter();
 
   const [isModalOpen, { close: closeModal, open: openModal }] =
     useDisclosure(false);
 
   type FormValues = {
-    animeId: string;
     seriesSite: string;
     seriesSiteId: string;
   };
 
-  const { data: animeList, isFetching: isFetchingAnimeList } = useQuery({
-    queryKey: ["anime", "info-list"],
-    queryFn: async () => {
-      const resp = await fetchAnimeList();
-
-      if (!resp || resp.body.type !== "success") {
-        return [];
-      }
-
-      return resp.body.data.map(({ anime }) => anime);
-    },
-    enabled: isModalOpen,
-    staleTime: 10_000,
-  });
-
   const addSourceMutation = useMutation({
     mutationFn: async (values: FormValues) => {
       return addAnimeSource({
-        seriesId: Number(values.animeId),
+        seriesId: props.forAnimeId,
         seriesSite: values.seriesSite,
         seriesSiteId: values.seriesSiteId,
       });
     },
   });
 
-  const animeOptions = useMemo(() => {
-    return animeList?.map((anime) => {
-      return {
-        value: String(anime.id),
-        label: anime.name,
-      };
-    });
-  }, [animeList]);
-
   const form = useForm<FormValues>({
     initialValues: {
-      animeId: "",
       seriesSite: "",
       seriesSiteId: "",
     },
@@ -119,7 +89,7 @@ export const AddNewSourceButton: FC = () => {
     },
   });
 
-  const isLoading = isFetchingAnimeList || addSourceMutation.isPending;
+  const isLoading = addSourceMutation.isPending;
 
   return (
     <>
@@ -184,28 +154,10 @@ export const AddNewSourceButton: FC = () => {
             });
           })}
         >
-          <LoadingOverlay
-            visible={isFetchingAnimeList}
-            zIndex={1000}
-            overlayProps={{
-              blur: 3,
-            }}
-          />
-
           <Fieldset
             className="flex flex-col gap-[inherit]"
             disabled={isLoading}
           >
-            <Select
-              required
-              searchable
-              data={animeOptions}
-              label="For anime"
-              placeholder="The Eminence in Shadow Season 2"
-              withScrollArea={false}
-              {...form.getInputProps("animeId")}
-            />
-
             <Select
               required
               searchable
@@ -402,7 +354,7 @@ export const EditAnimeInfoButton: FC<{
           return undefined;
         }
 
-        if (value < 0) {
+        if (value <= 0) {
           return "Invalid ID";
         }
 
@@ -435,7 +387,7 @@ export const EditAnimeInfoButton: FC<{
         closeOnEscape={!updateAnimeMutation.isPending}
         opened={isModalOpen}
         size="lg"
-        title="Add new source"
+        title="Edit anime info"
         overlayProps={{
           blur: 3,
         }}
@@ -546,7 +498,6 @@ export const EditAnimeInfoButton: FC<{
       </Modal>
       <Button
         color="white"
-        data-id={props.anime.id}
         leftSection={<IconEdit className="h-full w-full" />}
         size="lg"
         variant="subtle"
