@@ -1,7 +1,6 @@
 use axum::{
     extract::Json,
     extract::{FromRef, Path},
-    response::IntoResponse,
     Extension,
 };
 use axum_extra::extract::{OptionalPath, WithRejection};
@@ -10,15 +9,19 @@ use log::trace;
 use reqwest::StatusCode;
 use sea_orm::{prelude::*, ActiveValue, QueryOrder};
 use serde::{Deserialize, Serialize};
-use serde_json::json;
 
 use crate::{
     metadata::AnimeSite,
     server::{router::routes::v1::response::V1Response, state::AppState},
 };
 
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ListResponse {
+    pub series: Vec<entity::series_sources::Model>,
+}
 #[debug_handler]
-pub async fn list(Extension(app_state): Extension<AppState>) -> impl IntoResponse {
+pub async fn list(Extension(app_state): Extension<AppState>) -> V1Response<ListResponse> {
     let db = app_state.db.connection();
 
     let info = match entity::series_sources::Entity::find()
@@ -35,16 +38,20 @@ pub async fn list(Extension(app_state): Extension<AppState>) -> impl IntoRespons
         }
     };
 
-    V1Response::Success(json!({
-        "series": info,
-    }))
+    V1Response::Success(ListResponse { series: info })
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ListForSeriesResponse {
+    pub series: entity::series::Model,
+    pub sources: Vec<entity::series_sources::Model>,
+}
 #[debug_handler]
 pub async fn list_for_series(
     Extension(app_state): Extension<AppState>,
     Path(series_id): Path<i32>,
-) -> impl IntoResponse {
+) -> V1Response<ListForSeriesResponse> {
     let db = app_state.db.connection();
 
     let info = match entity::series::Entity::find_by_id(series_id)
@@ -63,10 +70,7 @@ pub async fn list_for_series(
     match info {
         x if x.len() == 1 => {
             let (series, sources) = x.into_iter().next().unwrap();
-            V1Response::Success(json!({
-                "series": series,
-                "sources": sources,
-            }))
+            V1Response::Success(ListForSeriesResponse { series, sources })
         }
 
         _ => V1Response::ErrorEmpty(StatusCode::NOT_FOUND),
@@ -75,17 +79,23 @@ pub async fn list_for_series(
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct AddAnimeSourcePayload {
+pub struct AddPayload {
     pub series_id: Option<i32>,
     pub series_site: AnimeSite,
     pub series_site_id: String,
+}
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct AddResponse {
+    pub payload: AddPayload,
+    pub result: entity::series_sources::Model,
 }
 #[debug_handler]
 pub async fn add(
     Extension(app_state): Extension<AppState>,
     OptionalPath(series_id): OptionalPath<i32>,
-    WithRejection(Json(payload), _): WithRejection<Json<AddAnimeSourcePayload>, V1Response>,
-) -> impl IntoResponse {
+    WithRejection(Json(payload), _): WithRejection<Json<AddPayload>, V1Response>,
+) -> V1Response<AddResponse> {
     let db = app_state.db.connection();
 
     let series_id = match series_id.or(payload.series_id) {
@@ -107,10 +117,7 @@ pub async fn add(
     };
 
     match new.insert(&db).await {
-        Ok(new) => V1Response::Success(json!({
-            "payload": payload,
-            "result": new,
-        })),
+        Ok(result) => V1Response::Success(AddResponse { payload, result }),
         Err(e)
             if e.sql_err()
                 .map(|x| matches!(x, SqlErr::UniqueConstraintViolation(_)))
@@ -132,11 +139,16 @@ pub async fn add(
     }
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct InfoResponse {
+    pub source: Option<entity::series_sources::Model>,
+}
 #[debug_handler]
 pub async fn info(
     Extension(app_state): Extension<AppState>,
     Path(source_id): Path<i32>,
-) -> impl IntoResponse {
+) -> V1Response<InfoResponse> {
     let db = app_state.db.connection();
 
     let info = match entity::series_sources::Entity::find_by_id(source_id)
@@ -152,20 +164,18 @@ pub async fn info(
         }
     };
 
-    V1Response::Success(json!({
-        "source": info,
-    }))
+    V1Response::Success(InfoResponse { source: info })
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct UpdateAnimeSourcePayload {
+pub struct UpdatePayload {
     pub for_series_id: Option<i32>,
     pub series_site: Option<AnimeSite>,
     pub series_site_id: Option<String>,
 }
-impl FromRef<UpdateAnimeSourcePayload> for entity::series_sources::ActiveModel {
-    fn from_ref(input: &UpdateAnimeSourcePayload) -> Self {
+impl FromRef<UpdatePayload> for entity::series_sources::ActiveModel {
+    fn from_ref(input: &UpdatePayload) -> Self {
         let mut new = entity::series_sources::ActiveModel::new();
 
         if let Some(for_series_id) = &input.for_series_id {
@@ -183,12 +193,18 @@ impl FromRef<UpdateAnimeSourcePayload> for entity::series_sources::ActiveModel {
         new
     }
 }
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct UpdateResponse {
+    pub payload: UpdatePayload,
+    pub result: entity::series_sources::Model,
+}
 #[debug_handler]
 pub async fn update(
     Extension(app_state): Extension<AppState>,
     Path(source_id): Path<i32>,
-    WithRejection(Json(payload), _): WithRejection<Json<UpdateAnimeSourcePayload>, V1Response>,
-) -> impl IntoResponse {
+    WithRejection(Json(payload), _): WithRejection<Json<UpdatePayload>, V1Response>,
+) -> V1Response<UpdateResponse> {
     let db = app_state.db.connection();
 
     trace!("Updating anime source: {:?}", payload);
@@ -196,10 +212,7 @@ pub async fn update(
     new.id = ActiveValue::Unchanged(source_id);
 
     match new.update(&db).await {
-        Ok(new) => V1Response::Success(json!({
-            "payload": payload,
-            "result": new,
-        })),
+        Ok(result) => V1Response::Success(UpdateResponse { payload, result }),
         Err(e) => V1Response::Error(
             StatusCode::INTERNAL_SERVER_ERROR,
             anyhow::anyhow!("Failed to update anime: {}", e).into(),
@@ -207,11 +220,16 @@ pub async fn update(
     }
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct RemoveResponse {
+    pub source_id: i32,
+}
 #[debug_handler]
 pub async fn remove(
     Extension(app_state): Extension<AppState>,
     Path(source_id): Path<i32>,
-) -> impl IntoResponse {
+) -> V1Response<RemoveResponse> {
     let db = app_state.db.connection();
 
     trace!("Removing anime source: {:?}", source_id);
@@ -219,9 +237,7 @@ pub async fn remove(
         .exec(&db)
         .await
     {
-        Ok(_) => V1Response::Success(json!({
-            "sourceId": source_id,
-        })),
+        Ok(_) => V1Response::Success(RemoveResponse { source_id }),
         Err(e) => V1Response::Error(
             StatusCode::INTERNAL_SERVER_ERROR,
             anyhow::anyhow!("Failed to remove anime: {}", e).into(),
